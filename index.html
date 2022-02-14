@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+</head>
+
+<body>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script defer>
+        async function authenticate() {
+            return await gapi.auth2.getAuthInstance()
+                .signIn({ scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.photos.readonly https://www.googleapis.com/auth/drive.readonly" })
+                .then(function () { console.log("Sign-in successful"); },
+                    function (err) { console.error("Error signing in", err); });
+        }
+        async function loadClient() {
+            await gapi.client.setApiKey("AIzaSyCrwPR75LU8IeYAycY6maRWT3CHrvbSG48");
+            return await gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
+                .then(function () { console.log("GAPI client loaded for API"); },
+                    function (err) { console.error("Error loading GAPI client for API", err); });
+        }
+        // Make sure the client is loaded and sign-in is complete before calling this method.
+        async function execute() {
+            return await gapi.client.drive.files.list({
+                "corpora": "user"
+            }).then((response) => {
+                response.result.files.forEach(element => {
+                    console.log("Filename: " + element.name);
+                });
+            }, (err) => {
+                console.error("Execute error", err);
+            });
+        }
+
+        async function clientAuth() {
+            await gapi.load("client:auth2", () => {
+                gapi.auth2.init({ client_id: "915999462569-qdfli7t94jofar3u8fj3k5j4enoekn47.apps.googleusercontent.com" });
+                console.log("Client auth loaded");
+            });
+        }
+
+        new Promise((res, rej) => {
+            clientAuth(authenticate().then(loadClient));
+        }).then(execute())
+            .catch((err) => {
+                console.log("Error occurred: ", err)
+            });
+
+        // function timeoutPromise(time) {
+        //     return new Promise(function (resolve) {
+        //         setTimeout(function () {
+        //             resolve(Date.now());
+        //         }, time)
+        //     })
+        // }
+
+        // function doSomethingAsync(str) {
+        //     return timeoutPromise(str);
+        // }
+
+        // async function doAsync() {
+        //     var start = Date.now(), time;
+        //     console.log(0);
+        //     time = await doSomethingAsync(1000);
+        //     console.log(time - start);
+        //     time = await doSomethingAsync(500);
+        //     console.log(time - start);
+        //     time = await doSomethingAsync(200);
+        //     console.log(time - start);
+        // }
+
+        // doAsync();
+
+    </script>
+    <!-- <button onclick="authenticate().then(loadClient)">authorize and load</button> -->
+    <!-- <button onclick="execute()">execute</button> -->
+
+</body>
+
+</html>
