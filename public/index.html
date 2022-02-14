@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Learning Google APIs</title>
-  </head>
-  <body>
-    <script defer async=false src="https://apis.google.com/js/api.js" onload="this.onload = () => {console.log('Avinash says:');}"></script>
-    <script defer async=false src="googledrive.js"></script>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning Google APIs</title>
+</head>
+
+<body>
+  <script defer async=false src="https://apis.google.com/js/api.js"
+    onreadystatechange="if(this.readyState === 'complete') console.log('Google API script has completed loading')"></script>
+  <script defer async=false src="googledrive.js" onload="googleDrive();"></script>
+</body>
+
 </html>
