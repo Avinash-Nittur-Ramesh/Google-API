@@ -6,4 +6,4 @@ Google API does not provide good documentation / reference for the client librar
 It is built upon two concepts 
 - APIs Directory: It lists all the available APIs that Google Workspace provides and can be seen using REST API: https://discovery.googleapis.com/discovery/v1/apis
   The most important field of the JSON result is `discoveryRestUrl`.
-- Discovery document: It provides a machine-readable description of a particular API selected browsed using `discoveryRestUrl`. It provides descriptions of the data and methods associated with the API, as well as information about available OAuth scopes, and descriptions of schemas, methods, parameters and available parameter values.
+- Discovery document: It provides a machine-readable description of a particular API selected browsed using `discoveryRestUrl`. It provides descriptions of the data and methods associated with the API, as well as information about available OAuth `scopes`, and descriptions of schemas, `methods`, `parameters` and references `ref`.
